@@ -22,7 +22,32 @@
                                '</section>';
                     });
                 }
-            }
+            },
+            {
+                type: 'lang',
+                filter: function (text) {
+                    var split = text.split(/\n\n}[ \t]*/);
+
+                    for (var i = 0, len = split.length; i < len; i++) {
+                        if ( i == 0 ) split[i] = split[i].replace(/^}[ \t]*/, '');
+                        split[i] = '<div class="awesome">' + split[i] + '</div>';
+                    }
+
+                    return split.join("\n\n");
+
+                    var regex = /<[ \t]+([\s\S]*)\n\n</g,
+                        newStr = '';
+
+                    console.log('START');
+                    while ( match = regex.exec(text) ) {
+                        if ( match ) {
+                            console.log(match);
+                        }
+                        text = text.replace( match[0], '<div class="awesome">' + match[3] ? match[3] : match[2] + '</div>' );
+                    }
+                    return text;
+                }
+            },
         ];
     };
 
